@@ -1,12 +1,11 @@
 import { initializeApp, credential } from "firebase-admin";
 import { ApolloServer } from "apollo-server";
 
-import * as serviceAccount from "./service-account.json";
 import { typeDefs } from "./graphql/types";
 import { resolvers } from "./graphql/resolvers";
 
 initializeApp({
-  credential: credential.cert(serviceAccount)
+  credential: credential.cert("./service-account.json")
 });
 
 const server = new ApolloServer({
