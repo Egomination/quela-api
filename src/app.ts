@@ -5,7 +5,7 @@ import { typeDefs } from "./graphql/types";
 import { resolvers } from "./graphql/resolvers";
 
 initializeApp({
-  credential: credential.cert("./service-account.json")
+	credential: credential.cert("./service-account.json")
 });
 
 const server = new ApolloServer({

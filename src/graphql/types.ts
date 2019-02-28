@@ -2,9 +2,9 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
 	type Patient {
-    id: ID!
-    name: String!
-    surname: String!
+		id: ID!
+		name: String!
+		surname: String!
 		TC: String!
 		info_temp: String!
 		info_airPres: String!
@@ -14,23 +14,23 @@ const typeDefs = gql`
 		doctorID: Doctor!
 	}
 
-  type Doctor {
-    id: ID!
-    name: String!
-    surname: String!
+	type Doctor {
+		id: ID!
+		name: String!
+		surname: String!
 		proficiency: String!
 		email: String!
 		password: String!
 		patientID: [Patient]!
-  }
+	}
 
 	type Query {
-		getAllPatient(id: String!): Patient
+		getPatient(id: String!): Patient
 	}
 
 	schema {
-    query: Query
-  }
+		query: Query
+	}
 `;
 
 export { typeDefs };
