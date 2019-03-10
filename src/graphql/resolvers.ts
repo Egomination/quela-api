@@ -19,6 +19,7 @@ const resolvers = {
 	},
 
 	Mutation: {
+		// Doctors
 		async createDoctor(_, input) {
 			let newDoctor = {
 				name: input.name,
@@ -26,13 +27,26 @@ const resolvers = {
 				proficiency: input.proficiency,
 				email: input.email,
 				password: input.password,
-				patientID: input.patientID
+				//patientID: input.patientID
 			};
 			// const docCreator =
 			await firestore()
 				.collection("doctors")
 				.add(newDoctor);
 			// return docCreator.id
+		},
+
+		async addPatientDoctor(_, input) {
+			let doctor = input.doctorID;
+			let patient = input.patientID;
+
+			await firestore()
+				.collection("doctors")
+				.doc(doctor)
+				.update({
+					patientID: firestore.FieldValue
+						.arrayUnion(patient)
+				});
 		},
 	}
 };
