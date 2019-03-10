@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
 	type Patient {
-		id: ID!
+		#id: ID!
 		name: String!
 		surname: String!
 		TC: String!
@@ -15,7 +15,7 @@ const typeDefs = gql`
 	}
 
 	type Doctor {
-		id: ID!
+		#id: ID!
 		name: String!
 		surname: String!
 		proficiency: String!
@@ -28,8 +28,14 @@ const typeDefs = gql`
 		getPatient(id: String!): Patient
 	}
 
+	type Mutation {
+		createDoctor(name: String!, surname: String!, proficiency: String!, 
+		email: String!, password: String!, patientID: [String]!): Doctor
+	}
+
 	schema {
 		query: Query
+		mutation: Mutation
 	}
 `;
 

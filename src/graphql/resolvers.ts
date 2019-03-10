@@ -17,6 +17,24 @@ const resolvers = {
 			}
 		},
 	},
+
+	Mutation: {
+		async createDoctor(_, input) {
+			let newDoctor = {
+				name: input.name,
+				surname: input.surname,
+				proficiency: input.proficiency,
+				email: input.email,
+				password: input.password,
+				patientID: input.patientID
+			};
+			// const docCreator =
+			await firestore()
+				.collection("doctors")
+				.add(newDoctor);
+			// return docCreator.id
+		},
+	}
 };
 
 export { resolvers };
