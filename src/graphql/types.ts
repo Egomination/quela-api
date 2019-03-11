@@ -4,13 +4,6 @@ const typeDefs = gql`
 	type Patient {
 		id: ID!
 		name: String!
-		surname: String!
-		TC: String!
-		info_temp: String!
-		info_airPres: String!
-		info_pulse: String!
-		email: String!
-		password: String!
 		doctorID: Doctor!
 	}
 
@@ -21,7 +14,7 @@ const typeDefs = gql`
 		proficiency: String!
 		email: String!
 		password: String!
-		patientID: [Patient]
+		patientID: [Patient]!
 	}
 
 	type Query {

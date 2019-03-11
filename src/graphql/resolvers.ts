@@ -1,5 +1,5 @@
 import { firestore } from "firebase-admin";
-import { ApolloError, ValidationError } from "apollo-server";
+import { ValidationError } from "apollo-server";
 
 const resolvers = {
 	Query: {
@@ -57,6 +57,33 @@ const resolvers = {
 				});
 		},
 	},
+
+	// Relationships
+	Patient: {
+		doctorID() {
+
+		}
+	},
+
+	Doctor: {
+		async patientID(doctorID) {
+			let patientArr = [];
+			await firestore()
+				.collection("patients")
+				.where("doctorID", "==", doctorID.id)
+				.get()
+				.then(snapshot => {
+					if (snapshot.empty) {
+						return new ValidationError("No patient for the doctor");
+					}
+					snapshot.forEach(patient => {
+						// Due to this, Query takes it's time.
+						patientArr.push(patient.data());
+					});
+				});
+			return patientArr;
+		},
+	}
 };
 
 export { resolvers };
