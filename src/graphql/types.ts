@@ -3,7 +3,14 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
 	type Patient {
 		id: ID!
+		TC: String!
 		name: String!
+		surname: String!
+		email: String!
+		password: String!
+		val_temperature: String!
+		val_airPressure: String!
+		val_pulse: String!
 		doctorID: Doctor!
 	}
 
@@ -24,8 +31,12 @@ const typeDefs = gql`
 
 	type Mutation {
 		createDoctor(name: String!, surname: String!, proficiency: String!, 
-		email: String!, password: String!, patientID: [String]!): Doctor
+			email: String!, password: String!, patientID: [String]!): Doctor
 		addPatientDoctor(doctorID: String!, patientID: String!): Doctor
+		
+		createPatient(name: String!, surname: String!, TC: String!
+			email: String!, password: String!,): Patient
+		addDoctorPatient(patientID: String!, doctorID: String!): Patient
 	}
 
 	schema {

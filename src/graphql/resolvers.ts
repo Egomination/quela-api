@@ -26,6 +26,36 @@ const resolvers = {
 	},
 
 	Mutation: {
+		// Patients
+		async createPatient(_, input) {
+			const patientCreator = await firestore()
+				.collection("patients")
+				.doc();
+
+			let newPatient = {
+				id: patientCreator.id,
+				name: input.name,
+				surname: input.surname,
+				TC: input.TC,
+				email: input.email,
+				password: input.password,
+			};
+
+			patientCreator.set(newPatient);
+		},
+
+		async addDoctorPatient(_, input) {
+			let patient = input.patientID;
+			let doctor = input.doctorID;
+
+			await firestore()
+				.collection("patients")
+				.doc(patient)
+				.update({
+					doctorID: doctor
+				});
+		},
+
 		// Doctors
 		async createDoctor(_, input) {
 			const docCreator = await firestore()
