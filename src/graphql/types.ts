@@ -8,6 +8,7 @@ const typeDefs = gql`
 		surname: String!
 		email: String!
 		password: String!
+		profile_pic: String!
 		val_temperature: String!
 		val_airPressure: String!
 		val_pulse: String!
@@ -35,7 +36,7 @@ const typeDefs = gql`
 		addPatientDoctor(doctorID: String!, patientID: String!): Doctor
 		
 		createPatient(name: String!, surname: String!, TC: String!
-			email: String!, password: String!,): Patient
+			email: String!, password: String!, profile_pic: String!): Patient
 		addDoctorPatient(patientID: String!, doctorID: String!): Patient
 		updateTemp(patientID: String!, temp: String!): Patient
 		updateAirPrs(patientID: String!, prs: String!): Patient

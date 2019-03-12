@@ -39,6 +39,7 @@ const resolvers = {
 				TC: input.TC,
 				email: input.email,
 				password: input.password,
+				profile_pic: input.profile_pic
 			};
 
 			patientCreator.set(newPatient);
