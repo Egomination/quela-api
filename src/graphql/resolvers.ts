@@ -56,6 +56,34 @@ const resolvers = {
 				});
 		},
 
+		async updateTemp(_, input) {
+			await firestore()
+				.collection("patients")
+				.doc(input.id)
+				.update({
+					val_temperature: input.temp
+				});
+		},
+
+		async updateAirPrs(_, input) {
+			await firestore()
+				.collection("patients")
+				.doc(input.id)
+				.update({
+					val_airPressure: input.prs
+				});
+		},
+
+		async updatePulse(_, input) {
+			await firestore()
+				.collection("patients")
+				.doc(input.id)
+				.update({
+					val_pulse: input.pulse
+				});
+		},
+
+
 		// Doctors
 		async createDoctor(_, input) {
 			const docCreator = await firestore()
