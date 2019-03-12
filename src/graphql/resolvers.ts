@@ -44,6 +44,7 @@ const resolvers = {
 			patientCreator.set(newPatient);
 		},
 
+		// Add a doctor to a patient
 		async addDoctorPatient(_, input) {
 			let patient = input.patientID;
 			let doctor = input.doctorID;
@@ -102,6 +103,7 @@ const resolvers = {
 			docCreator.set(newDoctor);
 		},
 
+		// Add a patient to the doctor
 		async addPatientDoctor(_, input) {
 			let doctor = input.doctorID;
 			let patient = input.patientID;
@@ -118,8 +120,20 @@ const resolvers = {
 
 	// Relationships
 	Patient: {
-		doctorID() {
+		async doctorID(patientID) {
+			let doctor: Object;
 
+			await firestore()
+				.collection("doctors")
+				.where("patientID", "array-contains", patientID.id)
+				.get() // returns multiple objects
+				.then(snapshot => {
+					if (snapshot.empty) {
+						return new ValidationError("No doctor assigned for this patient");
+					}
+					doctor = snapshot.docs[0].data();
+				});
+			return doctor;
 		}
 	},
 
