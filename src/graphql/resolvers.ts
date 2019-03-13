@@ -61,7 +61,7 @@ const resolvers = {
 		async updateTemp(_, input) {
 			await firestore()
 				.collection("patients")
-				.doc(input.id)
+				.doc(input.patientID)
 				.update({
 					val_temperature: input.temp
 				});
@@ -70,7 +70,7 @@ const resolvers = {
 		async updateAirPrs(_, input) {
 			await firestore()
 				.collection("patients")
-				.doc(input.id)
+				.doc(input.patientID)
 				.update({
 					val_airPressure: input.aPrs
 				});
@@ -79,7 +79,7 @@ const resolvers = {
 		async updatePulse(_, input) {
 			await firestore()
 				.collection("patients")
-				.doc(input.id)
+				.doc(input.patientID)
 				.update({
 					val_pulse: input.pulse
 				});
@@ -88,7 +88,7 @@ const resolvers = {
 		async updateBloodPrs(_, input) {
 			await firestore()
 				.collection("patients")
-				.doc(input.id)
+				.doc(input.patientID)
 				.update({
 					val_bloodPressure: input.bPrs
 				});
