@@ -72,7 +72,7 @@ const resolvers = {
 				.collection("patients")
 				.doc(input.id)
 				.update({
-					val_airPressure: input.prs
+					val_airPressure: input.aPrs
 				});
 		},
 
@@ -82,6 +82,15 @@ const resolvers = {
 				.doc(input.id)
 				.update({
 					val_pulse: input.pulse
+				});
+		},
+
+		async updateBloodPrs(_, input) {
+			await firestore()
+				.collection("patients")
+				.doc(input.id)
+				.update({
+					val_bloodPressure: input.bPrs
 				});
 		},
 

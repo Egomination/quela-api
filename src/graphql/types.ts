@@ -12,6 +12,7 @@ const typeDefs = gql`
 		val_temperature: String!
 		val_airPressure: String!
 		val_pulse: String!
+		val_bloodPressure: String!
 		doctorID: Doctor!
 	}
 
@@ -39,8 +40,9 @@ const typeDefs = gql`
 			email: String!, password: String!, profile_pic: String!): Patient
 		addDoctorPatient(patientID: String!, doctorID: String!): Patient
 		updateTemp(patientID: String!, temp: String!): Patient
-		updateAirPrs(patientID: String!, prs: String!): Patient
+		updateAirPrs(patientID: String!, aPrs: String!): Patient
 		updatePulse(patientID: String!, pulse: String!): Patient
+		updateBloodPrs(patientID: String!, bPrs: String!): Patient
 	}
 
 	schema {
