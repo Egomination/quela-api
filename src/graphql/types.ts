@@ -46,10 +46,8 @@ const typeDefs = gql`
 		createPatientData(id: String!, name:String!, min: String!, 
 		max: String!): Patient
 		addDoctorPatient(patientID: String!, doctorID: String!): Patient
-		updateTemp(patientID: String!, temp: String!): Patient
-		updateAirPrs(patientID: String!, aPrs: String!): Patient
-		updatePulse(patientID: String!, pulse: String!): Patient
-		updateBloodPrs(patientID: String!, bPrs: String!): Patient
+		updatePatientData(patientID: String!, field_name: String!,
+		new_value: String!): Patient
 	}
 
 	schema {

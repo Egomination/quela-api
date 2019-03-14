@@ -57,7 +57,7 @@ const resolvers = {
 				.collection("patients")
 				.doc(input.id)
 				.collection("values")
-				.doc()
+				.doc(input.name)
 				.set(newData);
 		},
 
@@ -74,42 +74,16 @@ const resolvers = {
 				});
 		},
 
-		async updateTemp(_, input) {
+		async updatePatientData(_, input) {
 			await firestore()
 				.collection("patients")
 				.doc(input.patientID)
+				.collection("values")
+				.doc(input.field_name)
 				.update({
-					val_temperature: input.temp
+					val_curr: input.new_value
 				});
 		},
-
-		async updateAirPrs(_, input) {
-			await firestore()
-				.collection("patients")
-				.doc(input.patientID)
-				.update({
-					val_airPressure: input.aPrs
-				});
-		},
-
-		async updatePulse(_, input) {
-			await firestore()
-				.collection("patients")
-				.doc(input.patientID)
-				.update({
-					val_pulse: input.pulse
-				});
-		},
-
-		async updateBloodPrs(_, input) {
-			await firestore()
-				.collection("patients")
-				.doc(input.patientID)
-				.update({
-					val_bloodPressure: input.bPrs
-				});
-		},
-
 
 		// Doctors
 		async createDoctor(_, input) {
