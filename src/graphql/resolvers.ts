@@ -45,6 +45,22 @@ const resolvers = {
 			patientCreator.set(newPatient);
 		},
 
+		async createPatientData(_, input) {
+			let newData = {
+				name: input.name,
+				val_curr: "0",
+				val_min: input.min,
+				val_max: input.max
+			}
+
+			await firestore()
+				.collection("patients")
+				.doc(input.id)
+				.collection("values")
+				.doc()
+				.set(newData);
+		},
+
 		// Add a doctor to a patient
 		async addDoctorPatient(_, input) {
 			let patient = input.patientID;

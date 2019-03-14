@@ -4,7 +4,7 @@ const typeDefs = gql`
 
 	type PatientValue {
 		name: String!
-		value: String!
+		val_curr: String!
 		val_min: String!
 		val_max: String!
 	}
@@ -43,6 +43,8 @@ const typeDefs = gql`
 		
 		createPatient(name: String!, surname: String!, TC: String!
 			email: String!, password: String!, profile_pic: String!): Patient
+		createPatientData(id: String!, name:String!, min: String!, 
+		max: String!): Patient
 		addDoctorPatient(patientID: String!, doctorID: String!): Patient
 		updateTemp(patientID: String!, temp: String!): Patient
 		updateAirPrs(patientID: String!, aPrs: String!): Patient
