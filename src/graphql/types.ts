@@ -1,6 +1,14 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+
+	type PatientValue {
+		name: String!
+		value: String!
+		val_min: String!
+		val_max: String!
+	}
+
 	type Patient {
 		id: ID!
 		TC: String!
@@ -9,10 +17,7 @@ const typeDefs = gql`
 		email: String!
 		password: String!
 		profile_pic: String!
-		val_temperature: String!
-		val_airPressure: String!
-		val_pulse: String!
-		val_bloodPressure: String!
+		values: [PatientValue]!
 		doctorID: Doctor!
 	}
 

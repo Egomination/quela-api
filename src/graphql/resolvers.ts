@@ -130,12 +130,23 @@ const resolvers = {
 
 	// Relationships
 	Patient: {
-		async doctorID(patientID) {
+		async values(patient) {
+			const _data = await firestore()
+				.collection("patients")
+				.doc(patient.id)
+				.collection("values")
+				.get()
+
+			const pData = _data.docs.map(data => data.data());
+			return pData;
+		},
+
+		async doctorID(patient) {
 			let doctor: Object;
 
 			await firestore()
 				.collection("doctors")
-				.where("patientID", "array-contains", patientID.id)
+				.where("patientID", "array-contains", patient.id)
 				.get() // returns multiple objects
 				.then(snapshot => {
 					if (snapshot.empty) {
@@ -148,11 +159,11 @@ const resolvers = {
 	},
 
 	Doctor: {
-		async patientID(doctorID) {
+		async patientID(doctor) {
 			let patientArr = [];
 			await firestore()
 				.collection("patients")
-				.where("doctorID", "==", doctorID.id)
+				.where("doctorID", "==", doctor.id)
 				.get()
 				.then(snapshot => {
 					if (snapshot.empty) {
