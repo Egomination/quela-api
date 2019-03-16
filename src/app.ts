@@ -5,8 +5,6 @@ import { config } from "dotenv";
 import { typeDefs } from "./graphql/types";
 import { resolvers } from "./graphql/resolvers";
 
-// Need this type of call because of error
-//const serviceAccount = require("./service-account.json");
 config();
 
 initializeApp({
