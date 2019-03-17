@@ -8,7 +8,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "ts-node-dev src/app.ts",
-    "prod": "ts-node -T src/app.ts"
+    "prod": "ts-node -T src/app.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@types/dotenv": "^6.1.0",

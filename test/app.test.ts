@@ -1,7 +1,19 @@
-function sum(a, b) {
-  return a + b;
-}
+import axios from "axios";
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+describe("Connection", () => {
+  test("to localhost", async () => {
+    // ID LwUY6z3pTql0VbQemjBh is the Test Patient
+    const response = await axios.post("http://localhost:4000/", {
+      query: `
+        query{
+          getPatient(
+            id: "LwUY6z3pTql0VbQemjBh"
+          ) {
+            name
+          }
+        }
+      `
+    });
+    expect(response.status).toBe(200);
+  });
 });
