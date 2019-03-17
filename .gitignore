@@ -59,10 +59,3 @@ typings/
 
 # next.js build output
 .next
-
-# Output
-dist
-
-# API Key
-src/service-account.json
-a.js
