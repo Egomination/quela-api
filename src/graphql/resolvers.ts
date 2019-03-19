@@ -5,23 +5,23 @@ const resolvers = {
 	Query: {
 		// Patiens
 		async getPatient(_: any, args: { id: any; }) {
-			const patientDoc = await firestore()
+			const patientData = await firestore()
 				.collection("patients")
 				.doc(args.id)
 				.get();
 
-			const patient = patientDoc.data();
+			const patient = patientData.data();
 			return patient || new ValidationError("Patient ID not found");
 		},
 		// Doctors
 		async getDoctor(_: any, args: { id: any; }) {
-			const patientDoc = await firestore()
+			const doctorData = await firestore()
 				.collection("doctors")
 				.doc(args.id)
 				.get();
 
-			const patient = patientDoc.data();
-			return patient || new ValidationError("Patient ID not found");
+			const doctor = doctorData.data();
+			return doctor || new ValidationError("Patient ID not found");
 		},
 	},
 
