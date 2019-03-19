@@ -15,7 +15,6 @@ const typeDefs = gql`
 		name: String!
 		surname: String!
 		email: String!
-		password: String!
 		profile_pic: String!
 		values: [PatientValue]!
 		doctorID: Doctor!
@@ -27,7 +26,6 @@ const typeDefs = gql`
 		surname: String!
 		proficiency: String!
 		email: String!
-		password: String!
 		patientID: [Patient]!
 	}
 
@@ -38,11 +36,11 @@ const typeDefs = gql`
 
 	type Mutation {
 		createDoctor(name: String!, surname: String!, proficiency: String!, 
-			email: String!, password: String!): Doctor
+			email: String!): Doctor
 		addPatientDoctor(doctorID: String!, patientID: String!): Doctor
 		
 		createPatient(name: String!, surname: String!, TC: String!
-			email: String!, password: String!, profile_pic: String!): Patient
+			email: String!, profile_pic: String!): Patient
 		createPatientData(id: String!, name:String!, min: String!, 
 		max: String!): Patient
 		addDoctorPatient(patientID: String!, doctorID: String!): Patient
