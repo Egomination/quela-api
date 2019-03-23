@@ -3,7 +3,7 @@ import { ValidationError } from "apollo-server";
 
 const resolvers = {
 	Query: {
-		// Patiens
+		// Patient
 		async getPatient(_: any, args: { id: any; }) {
 			const patientData = await firestore()
 				.collection("patients")
@@ -13,7 +13,7 @@ const resolvers = {
 			const patient = patientData.data();
 			return patient || new ValidationError("Patient ID not found");
 		},
-		// Doctors
+		// Doctor
 		async getDoctor(_: any, args: { id: any; }) {
 			const doctorData = await firestore()
 				.collection("doctors")
@@ -21,7 +21,17 @@ const resolvers = {
 				.get();
 
 			const doctor = doctorData.data();
-			return doctor || new ValidationError("Patient ID not found");
+			return doctor || new ValidationError("Doctor ID not found");
+		},
+		// Staff
+		async getStaff(_: any, args: { id: any; }) {
+			const staffData = await firestore()
+				.collection("staff")
+				.doc(args.id)
+				.get();
+
+			const staff = staffData.data();
+			return staff || new ValidationError("No Staff with that ID found");
 		},
 	},
 

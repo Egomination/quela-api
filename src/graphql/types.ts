@@ -29,9 +29,16 @@ const typeDefs = gql`
 		patientID: [Patient]!
 	}
 
+	type Staff {
+		id: ID!
+		name: String!
+		surname: String!
+	}
+
 	type Query {
 		getPatient(id: String!): Patient
 		getDoctor(id: String!): Doctor
+		getStaff(id: String!): Staff
 	}
 
 	type Mutation {
