@@ -33,6 +33,15 @@ const resolvers = {
 			const staff = staffData.data();
 			return staff || new ValidationError("No Staff with that ID found");
 		},
+		// General
+		async checkType(_: any, args: { id: any; }) {
+			const test = await firestore()
+				.collection("users")
+				.doc(args.id)
+				.get();
+
+			return test.data().type;
+		},
 	},
 
 	Mutation: {
@@ -42,13 +51,17 @@ const resolvers = {
 				.collection("patients")
 				.doc();
 
+			await firestore()
+				.collection("users")
+				.doc(patientCreator.id)
+				.set({ type: "patient" });
+
 			let newPatient = {
 				id: patientCreator.id,
 				name: input.name,
 				surname: input.surname,
 				TC: input.TC,
 				email: input.email,
-				password: input.password,
 				profile_pic: input.profile_pic
 			};
 
@@ -77,7 +90,7 @@ const resolvers = {
 			let doctor = input.doctorID;
 
 			await firestore()
-				.collection("doctors")
+				.collection("patients")
 				.doc(patient)
 				.update({
 					doctorID: firestore.FieldValue
@@ -102,13 +115,17 @@ const resolvers = {
 				.collection("doctors")
 				.doc();
 
+			await firestore()
+				.collection("users")
+				.doc(docCreator.id)
+				.set({ type: "doctor" });
+
 			let newDoctor = {
 				id: docCreator.id,
 				name: input.name,
 				surname: input.surname,
 				proficiency: input.proficiency,
 				email: input.email,
-				password: input.password,
 			};
 
 			docCreator.set(newDoctor);
