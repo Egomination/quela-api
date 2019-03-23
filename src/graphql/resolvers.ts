@@ -67,10 +67,11 @@ const resolvers = {
 			let doctor = input.doctorID;
 
 			await firestore()
-				.collection("patients")
+				.collection("doctors")
 				.doc(patient)
 				.update({
-					doctorID: doctor
+					doctorID: firestore.FieldValue
+						.arrayUnion(doctor)
 				});
 		},
 
@@ -132,19 +133,18 @@ const resolvers = {
 		},
 
 		async doctorID(patient) {
-			let doctor: Object;
-
+			let doctorArr = [];
 			await firestore()
 				.collection("doctors")
 				.where("patientID", "array-contains", patient.id)
-				.get() // returns multiple objects
+				.get()
 				.then(snapshot => {
-					if (snapshot.empty) {
-						return new ValidationError("No doctor assigned for this patient");
-					}
-					doctor = snapshot.docs[0].data();
+					snapshot.forEach(doctor => {
+						// Due to this, Query takes it's time.
+						doctorArr.push(doctor.data());
+					});
 				});
-			return doctor;
+			return doctorArr;
 		}
 	},
 
@@ -153,12 +153,9 @@ const resolvers = {
 			let patientArr = [];
 			await firestore()
 				.collection("patients")
-				.where("doctorID", "==", doctor.id)
+				.where("doctorID", "array-contains", doctor.id)
 				.get()
 				.then(snapshot => {
-					if (snapshot.empty) {
-						return new ValidationError("No patient for the doctor");
-					}
 					snapshot.forEach(patient => {
 						// Due to this, Query takes it's time.
 						patientArr.push(patient.data());

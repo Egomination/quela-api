@@ -17,7 +17,7 @@ const typeDefs = gql`
 		email: String!
 		profile_pic: String!
 		values: [PatientValue]!
-		doctorID: Doctor!
+		doctorID: [Doctor]!
 	}
 
 	type Doctor {
