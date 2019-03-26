@@ -35,37 +35,34 @@ const resolvers = {
 		},
 		// General
 		async checkType(_: any, args: { id: any; }) {
-			const test = await firestore()
+			const type = await firestore()
 				.collection("users")
 				.doc(args.id)
 				.get();
 
-			return test.data().type;
+			return type.data().type;
 		},
 	},
 
 	Mutation: {
 		// Patients
 		async createPatient(_, input) {
-			const patientCreator = await firestore()
+			await firestore()
 				.collection("patients")
-				.doc();
+				.doc(input.id)
+				.set({
+					id: input.id,
+					name: input.name,
+					surname: input.surname,
+					TC: input.TC,
+					email: input.email,
+					profile_pic: input.profile_pic
+				});
 
 			await firestore()
 				.collection("users")
-				.doc(patientCreator.id)
+				.doc(input.id)
 				.set({ type: "patient" });
-
-			let newPatient = {
-				id: patientCreator.id,
-				name: input.name,
-				surname: input.surname,
-				TC: input.TC,
-				email: input.email,
-				profile_pic: input.profile_pic
-			};
-
-			patientCreator.set(newPatient);
 		},
 
 		async createPatientData(_, input) {
@@ -111,24 +108,21 @@ const resolvers = {
 
 		// Doctors
 		async createDoctor(_, input) {
-			const docCreator = await firestore()
+			await firestore()
 				.collection("doctors")
-				.doc();
+				.doc(input.id)
+				.set({
+					id: input.id,
+					name: input.name,
+					surname: input.surname,
+					proficiency: input.proficiency,
+					email: input.email,
+				});
 
 			await firestore()
 				.collection("users")
-				.doc(docCreator.id)
+				.doc(input.id)
 				.set({ type: "doctor" });
-
-			let newDoctor = {
-				id: docCreator.id,
-				name: input.name,
-				surname: input.surname,
-				proficiency: input.proficiency,
-				email: input.email,
-			};
-
-			docCreator.set(newDoctor);
 		},
 
 		// Add a patient to the doctor
