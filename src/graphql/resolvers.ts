@@ -117,6 +117,7 @@ const resolvers = {
 					surname: input.surname,
 					proficiency: input.proficiency,
 					email: input.email,
+					profile_pic: input.profile_pic
 				});
 
 			await firestore()
