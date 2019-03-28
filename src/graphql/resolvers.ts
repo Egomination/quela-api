@@ -104,6 +104,22 @@ const resolvers = {
 				.update({
 					val_curr: input.new_value
 				});
+
+			const data = await firestore()
+				.collection("patients")
+				.doc(input.patientID)
+				.collection("values")
+				.doc(input.field_name)
+				.get();
+
+			await firestore()
+				.collection("patients")
+				.doc(input.patientID)
+				.collection("values")
+				.doc(input.field_name)
+				.update({
+					last_upd: data.updateTime.seconds
+				});
 		},
 
 		// Doctors
