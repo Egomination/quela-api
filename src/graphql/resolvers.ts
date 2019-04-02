@@ -1,5 +1,12 @@
 import { firestore } from "firebase-admin";
-import { ValidationError } from "apollo-server";
+import { ValidationError, PubSub, withFilter } from "apollo-server";
+import { Query } from "@google-cloud/firestore";
+
+enum Events {
+	Patient_Data_UPDATED = "Patient_Data_UPDATED",
+}
+
+const pubsub = new PubSub();
 
 const resolvers = {
 	Query: {
@@ -96,6 +103,7 @@ const resolvers = {
 		},
 
 		async updatePatientData(_, input) {
+			// Update value
 			await firestore()
 				.collection("patients")
 				.doc(input.patientID)
@@ -105,6 +113,7 @@ const resolvers = {
 					val_curr: input.new_value
 				});
 
+			// Get the data of updated value
 			const data = await firestore()
 				.collection("patients")
 				.doc(input.patientID)
@@ -112,6 +121,7 @@ const resolvers = {
 				.doc(input.field_name)
 				.get();
 
+			// Update timestamp
 			await firestore()
 				.collection("patients")
 				.doc(input.patientID)
@@ -120,6 +130,23 @@ const resolvers = {
 				.update({
 					last_upd: data.updateTime.seconds
 				});
+
+			// Get the data of Patient - For Subs -
+			const patientData = await firestore()
+				.collection("patients")
+				.doc(input.patientID)
+				.get();
+
+			// Subscription output
+			const output = Object.assign(data.data(),
+				{ p_name: patientData.data().name },
+				{ p_surname: patientData.data().surname }
+			)
+
+			// Subscription
+			pubsub.publish(Events.Patient_Data_UPDATED, {
+				doctorID: patientData.data().doctorID, dataUpdated: output
+			});
 		},
 
 		// Doctors
@@ -200,6 +227,18 @@ const resolvers = {
 					});
 				});
 			return patientArr;
+		},
+	},
+
+	// Subscriptions
+	Subscription: {
+		dataUpdated: {
+			subscribe: withFilter(
+				() => pubsub.asyncIterator(Events.Patient_Data_UPDATED),
+				(payload, args) => {
+					return payload.doctorID.includes(args.doctorID);
+				},
+			),
 		},
 	}
 };

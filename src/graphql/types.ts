@@ -7,7 +7,17 @@ const typeDefs = gql`
 		val_curr: String!
 		val_min: String!
 		val_max: String!
-		last_upd: String!
+		last_upd: Int!
+	}
+
+	type DataSubResult {
+		name: String!
+		val_curr: String!
+		val_min: String!
+		val_max: String!
+		last_upd: Int!
+		p_name: String!
+		p_surname: String!
 	}
 
 	type Patient {
@@ -58,9 +68,14 @@ const typeDefs = gql`
 		new_value: String!): Boolean
 	}
 
+	type Subscription {
+  	dataUpdated(doctorID: String): DataSubResult
+  }
+
 	schema {
 		query: Query
 		mutation: Mutation
+		subscription: Subscription
 	}
 `;
 
