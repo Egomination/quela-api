@@ -63,7 +63,14 @@ const resolvers = {
 					surname: input.surname,
 					TC: input.TC,
 					email: input.email,
-					profile_pic: input.profile_pic
+					profile_pic: input.profile_pic,
+					room_no: input.room_no,
+					illness: input.illness,
+					gender: input.gender,
+					age: input.age,
+					weight: input.weight,
+					height: input.height,
+					telephone: input.telephone
 				});
 
 			await firestore()
@@ -160,7 +167,11 @@ const resolvers = {
 					surname: input.surname,
 					proficiency: input.proficiency,
 					email: input.email,
-					profile_pic: input.profile_pic
+					profile_pic: input.profile_pic,
+					gender: input.gender,
+					age: input.age,
+					hospital_name: input.hospital_name,
+					telephone: input.telephone
 				});
 
 			await firestore()
