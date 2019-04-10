@@ -1,5 +1,5 @@
 import { initializeApp, credential } from "firebase-admin";
-import { ApolloServer } from "apollo-server";
+import { ApolloServer, makeExecutableSchema } from "apollo-server";
 import { config } from "dotenv";
 
 import { typeDefs } from "./graphql/types";
@@ -16,9 +16,9 @@ initializeApp({
 
 });
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 const server = new ApolloServer({
-	typeDefs,
-	resolvers
+	schema
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
