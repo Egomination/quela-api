@@ -89,21 +89,9 @@ const mutation = {
         last_upd: data.updateTime.seconds
       });
 
-    // Get the data of Patient - For Subs -
-    const patientData = await firestore()
-      .collection("patients")
-      .doc(input.patientID)
-      .get();
-
-    // Subscription output
-    const output = Object.assign(data.data(),
-      { p_name: patientData.data().name },
-      { p_surname: patientData.data().surname }
-    )
-
     // Subscription
     pubsub.publish(Events.Patient_Data_UPDATED, {
-      doctorID: patientData.data().doctorID, dataUpdated: output
+      patientID: input.patientID, dataUpdated: data.data()
     });
   },
 

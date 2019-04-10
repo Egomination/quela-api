@@ -10,16 +10,6 @@ const typeDefs = gql`
 		last_upd: Int!
 	}
 
-	type DataSubResult {
-		name: String!
-		val_curr: String!
-		val_min: String!
-		val_max: String!
-		last_upd: Int!
-		p_name: String!
-		p_surname: String!
-	}
-
 	type Patient {
 		id: ID!
 		TC: String!
@@ -83,7 +73,7 @@ const typeDefs = gql`
 	}
 
 	type Subscription {
-  	dataUpdated(doctorID: String): DataSubResult
+  	dataUpdated(patientID: String): PatientValue
   }
 
 	schema {

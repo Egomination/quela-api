@@ -11,7 +11,7 @@ const subs = {
     subscribe: withFilter(
       () => pubsub.asyncIterator(Events.Patient_Data_UPDATED),
       (payload, args) => {
-        return payload.doctorID.includes(args.doctorID);
+        return payload.patientID.includes(args.patientID);
       },
     ),
   },
