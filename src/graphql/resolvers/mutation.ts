@@ -89,9 +89,14 @@ const mutation = {
         last_upd: data.updateTime.seconds
       });
 
+     const patient = await firestore()
+      .collection("patients")
+      .doc(input.patientID)
+      .get();
+
     // Subscription
     pubsub.publish(Events.Patient_Data_UPDATED, {
-      patientID: input.patientID, dataUpdated: data.data()
+      patientID: input.patientID, dataUpdated: patient.data()
     });
   },
 

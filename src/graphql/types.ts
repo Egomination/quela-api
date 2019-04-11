@@ -73,7 +73,7 @@ const typeDefs = gql`
 	}
 
 	type Subscription {
-  	dataUpdated(patientID: String): PatientValue
+  	dataUpdated(patientID: String): Patient
   }
 
 	schema {
