@@ -8,6 +8,7 @@ const typeDefs = gql`
 		val_min: String!
 		val_max: String!
 		last_upd: Int!
+		graph_data: [String]!
 	}
 
 	type Patient {

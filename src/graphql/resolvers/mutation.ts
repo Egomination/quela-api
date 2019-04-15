@@ -84,7 +84,10 @@ const mutation = {
       .collection("values")
       .doc(input.field_name)
       .update({
-        last_upd: data.updateTime.seconds
+        last_upd: data.updateTime.seconds,
+        graph_data: firestore
+          .FieldValue
+          .arrayUnion(input.new_value)
       });
   },
 
