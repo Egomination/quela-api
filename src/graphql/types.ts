@@ -72,14 +72,9 @@ const typeDefs = gql`
 		new_value: String!): Boolean
 	}
 
-	type Subscription {
-  	dataUpdated(patientID: String): Patient
-  }
-
 	schema {
 		query: Query
 		mutation: Mutation
-		subscription: Subscription
 	}
 `;
 

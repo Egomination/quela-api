@@ -21,7 +21,6 @@ const server = new ApolloServer({
 	schema
 });
 
-server.listen({ port: process.env.PORT || 4000 }).then(({ url, subscriptionsUrl }) => {
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
 	console.log(`Server ready at ${url}`);
-	console.log(`Subscriptions ready at ${subscriptionsUrl}`);
 });
