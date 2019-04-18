@@ -2,13 +2,16 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
 
+	type graphData {
+		data: Int!
+		time: Int!
+	}
+
 	type PatientValue {
 		name: String!
-		val_curr: String!
 		val_min: String!
 		val_max: String!
-		last_upd: Int!
-		graph_data: [String]!
+		graph_data: [graphData]!
 	}
 
 	type Patient {
@@ -70,7 +73,7 @@ const typeDefs = gql`
 		max: String!): Boolean
 		addDoctorPatient(patientID: String!, doctorID: String!): Boolean
 		updatePatientData(patientID: String!, field_name: String!,
-		new_value: String!): Boolean
+		new_value: Int!): Boolean
 	}
 
 	schema {
