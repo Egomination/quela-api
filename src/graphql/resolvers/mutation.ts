@@ -1,5 +1,8 @@
 import { firestore } from "firebase-admin";
 
+import "../../email";
+import sendMail from "../../email";
+
 const mutation = {
   // Patients
   async createPatient(_, input) {
@@ -73,6 +76,11 @@ const mutation = {
             "time": data.updateTime.seconds
           })
       });
+
+    // Alert Email Check
+    if (input.new_value > data.data().val_max || input.new_value < data.data().val_min) {
+      sendMail(String(input.new_value));
+    }
   },
 
   // Doctors
