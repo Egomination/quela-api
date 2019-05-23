@@ -6,6 +6,7 @@ import sendMail from "../../email";
 const mutation = {
   // Patients
   async createPatient(_, input) {
+    // User Creation
     await firestore()
       .collection("patients")
       .doc(input.id)
@@ -25,23 +26,34 @@ const mutation = {
         telephone: input.telephone
       });
 
+    // Index Creation
     await firestore()
       .collection("users")
       .doc(input.id)
       .set({ type: "patient" });
-  },
 
-  async createPatientData(_, input) {
-    await firestore()
-      .collection("patients")
-      .doc(input.id)
-      .collection("values")
-      .doc(input.name)
-      .set({
-        name: input.name,
-        val_min: input.min,
-        val_max: input.max
-      });
+    // Data Creation
+    const fields = [
+      { name: "Air Pressure", val_max: "35", val_min: "10", graph_data: [] },
+      { name: "Blood Pressure", val_max: "20", val_min: "15", graph_data: [] },
+      { name: "Pulse", val_max: "35", val_min: "15", graph_data: [] },
+      { name: "Temperature", val_max: "40", val_min: "35", graph_data: [] }
+    ];
+
+    fields.forEach(async field => {
+      await firestore()
+        .collection("patients")
+        .doc(input.id)
+        .collection("values")
+        .doc(field.name)
+        .set({
+          name: field.name,
+          val_min: field.val_min,
+          val_max: field.val_max,
+          graph_data: field.graph_data
+        });
+    });
+
   },
 
   // Add a doctor to a patient

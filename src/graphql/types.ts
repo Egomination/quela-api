@@ -69,8 +69,6 @@ const typeDefs = gql`
 			email: String!, profile_pic: String!, room_no: String!, illness: String!,
 			gender: String!, age: Int!, weight: String!, height: String!, 
 			telephone: String!): Boolean
-		createPatientData(id: String!, name:String!, min: String!, 
-		max: String!): Boolean
 		addDoctorPatient(patientID: String!, doctorID: String!): Boolean
 		updatePatientData(patientID: String!, field_name: String!,
 		new_value: Int!): Boolean
