@@ -34,10 +34,10 @@ const mutation = {
 
     // Data Creation
     const fields = [
-      { name: "Air Pressure", val_max: "35", val_min: "10", graph_data: [] },
-      { name: "Blood Pressure", val_max: "20", val_min: "15", graph_data: [] },
-      { name: "Pulse", val_max: "35", val_min: "15", graph_data: [] },
-      { name: "Temperature", val_max: "40", val_min: "35", graph_data: [] }
+      { name: "Air Pressure", val_max: "35", val_min: "10", graph_data: [{ data: 0, time: 0 }] },
+      { name: "Blood Pressure", val_max: "20", val_min: "15", graph_data: [{ data: 0, time: 0 }] },
+      { name: "Pulse", val_max: "35", val_min: "15", graph_data: [{ data: 0, time: 0 }] },
+      { name: "Temperature", val_max: "40", val_min: "35", graph_data: [{ data: 0, time: 0 }] }
     ];
 
     fields.forEach(async field => {
